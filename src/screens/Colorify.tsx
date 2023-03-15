@@ -86,6 +86,7 @@ const Colorify = () => {
 
     React.useEffect(() => {
         fetchPlaylists();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token, page]);
 
     // const onChangeSearch = (event: any) => {

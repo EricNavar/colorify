@@ -12,13 +12,6 @@ const scopes = [
     'playlist-read-collaborative',
     'playlist-modify-private',
     'playlist-modify-public',
-    'user-follow-modify',
-    'user-read-playback-position',
-    'user-read-recently-played',
-    'user-library-modify',
-    'user-library-read',
-    'user-read-email',
-    'user-read-private'
 ];
 
 const createScopeString = () => {

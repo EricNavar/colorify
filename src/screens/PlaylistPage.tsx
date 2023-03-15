@@ -77,6 +77,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
         }
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     React.useEffect(() => {
         const storedToken = window.localStorage.getItem('token') || '';
         setToken(storedToken);
@@ -85,6 +86,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
 
     React.useEffect(() => {
         fetchPlaylistSongs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token, pagesRequested]);
 
     const onClickColorify = async () => {
