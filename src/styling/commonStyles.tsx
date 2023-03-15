@@ -12,14 +12,14 @@ export const ScreenMain = styled('main')(({ theme }) => ({
   paddingLeft: '7.5%',
   paddingRight: '7.5%',
   [theme.breakpoints.down('lg')]: {
-    width: '75%',
-    paddingLeft: '12.5%',
-    paddingRight: '12.5%',
+    width: '80%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
   },
   [theme.breakpoints.only('xs')]: {
-    width: '88%',
-    paddingLeft: '6%',
-    paddingRight: '6%',
+    width: '90%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
   },
 }));
 

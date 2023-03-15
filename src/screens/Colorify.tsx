@@ -13,6 +13,7 @@ const ScrollableArea = styled('div')`
     padding-right: 15px;
     display: flex;
     flex-wrap: wrap;
+    padding-top: 20px;
 `;
 
 const Header = styled(Link)`
@@ -49,17 +50,28 @@ const Colorify = () => {
         const expirationTimeNumber = expirationTime ? +expirationTime : null;
         const expired = expirationTimeNumber && expirationTimeNumber <= new Date().getTime();
 
+        // console.log('=========================');
+
         // console.log('expirationTime:', expirationTimeNumber);
         // console.log('now:           ', new Date().getTime())
 
         // console.log('expirationTime:', expirationTimeNumber ? new Date(expirationTimeNumber).toLocaleString() : null)
         // console.log('now:           ', new Date().toLocaleString());
 
+        // console.log('expired:', expired);
+
+        if (expired) {
+            window.localStorage.removeItem('token');
+            window.localStorage.removeItem('token_expiration');
+        }
+
         if (!token && hash) {
             token = hash.substring(1).split('&').find(elem => elem.startsWith('access_token')) || '';
             if (token) {
                 token = token.split('=')[1];
-                const newExpirationTime = +(new Date().getTime()) + 60 * 60; // token lasts an hour
+                // token lasts an hour. 1 hour is 60*60*1000 milliseconds
+                const newExpirationTime = +(new Date().getTime()) + 60 * 60 * 1000;
+                // console.log('NEW EXPIR TIME:', newExpirationTime);
                 window.localStorage.setItem('token_expiration', newExpirationTime.toString());
             }
             window.location.hash = '';
@@ -86,6 +98,7 @@ const Colorify = () => {
     // };
 
     const onClickPage = (newPage: number) => {
+        console.log('onClickPage')
         setPage(newPage);
     };
 
@@ -109,8 +122,16 @@ const Colorify = () => {
                     <ScrollableArea>
                         {playlists.map((playlist, index) => <SpotifyPlaylist key={index} {...playlist}/>)}
                     </ScrollableArea>
-                    {Array.from({length: totalPages}, (x, i) => i + 1).map((page: number, index: number) =>
-                        <Button key={index} onClick={() => onClickPage(index)}>{index + 1}</Button>
+                    {Array.from({length: totalPages}, (x, i) => i + 1).map((pageNumber: number, index: number) => 
+                        <Button
+                            disableElevation
+                            color='info'
+                            key={index}
+                            variant={index === page ? 'contained' : 'text'}
+                            onClick={() => onClickPage(index)}
+                        >
+                            {index + 1}
+                        </Button>
                     )}
                 </>
             }
