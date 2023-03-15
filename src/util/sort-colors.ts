@@ -1,5 +1,4 @@
 import { Color } from '@jgleman/color-box';
-import { SpotifySongProps } from '../commonTypes';
 
 export const colors = [
   '#ffffff',

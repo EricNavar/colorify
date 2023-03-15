@@ -44,7 +44,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
     const [doneSorting, setDoneSorting] = React.useState(false);
     // some songs may be null and they are later filtered out, so we need pagesRequested and can't just use the length of the songs array
     const [pagesRequested, setPagesRequested] = React.useState<number>(0);
-    const limit = 100;
+    const limit = 50;
 
     const fetchPlaylistDetails = async () => {
         let data;
@@ -69,7 +69,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
             data = await getSongsFromPlaylist(token, props.playlistId, pagesRequested * limit);
             if (data) {
                 if (!totalPages) {
-                    setTotalPages(Math.ceil(data.totalSongs / 100));
+                    setTotalPages(Math.ceil(data.totalSongs / 50));
                 }
                 setSongs([...songs, ...data.songs]);
                 setPagesRequested((pagesRequested) => pagesRequested + 1);
@@ -129,7 +129,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
         <div>
             <Details>
                 <PlaylistArt src={thumbnail} height="180px" width="180px" />
-                <div >
+                <div style={{alignContent: 'center', display:'grid'}}>
                     <Typography gutterBottom variant='h3'>{name}</Typography>
                     <Typography variant='body1'>{songs.length} songs</Typography>
                 </div>

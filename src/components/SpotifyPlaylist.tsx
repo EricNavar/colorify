@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IconButton, Link, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { SpotifyPlaylistProps } from '../commonTypes';
 import { LinkIcon } from '../assets/LinkIcon';
@@ -30,7 +31,7 @@ const SpotifyPlaylist = (props: SpotifyPlaylistProps) => {
             <TextContainer>
                 <Typography variant='body1'>{props.name}</Typography>
                 <IconButton href={props.link}><LinkIcon/></IconButton>
-                <Link variant='body1' href={`/playlist/${props.id}`}>Colorify</Link>
+                <Link component={RouterLink} to={`/playlist/${props.id}`}>Colorify</Link>
             </TextContainer>
         </SongCard>
     );

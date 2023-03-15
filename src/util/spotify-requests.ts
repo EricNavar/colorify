@@ -72,7 +72,7 @@ type getSongsFromPlaylistResponse = {
     totalSongs: number;
 }
 export const getSongsFromPlaylist = async (token: string, playlistId: string, offset: number) => {
-    const limit = 100;
+    const limit = 50;
     const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=${limit}&offset=${offset}`;
     return axios.get(url, getConfig(token))
         .then(function (response: any) {

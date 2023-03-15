@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Link, styled } from '@mui/material';
+import { Button, styled, Typography } from '@mui/material';
 
 import { SpotifyPlaylistProps } from '../commonTypes';
 import { SpotifyLogin } from '../components/SpotifyLogin';
@@ -16,7 +16,7 @@ const ScrollableArea = styled('div')`
     padding-top: 20px;
 `;
 
-const Header = styled(Link)`
+const Header = styled(Typography)`
     text-decoration: none;
 `;
 
@@ -105,7 +105,7 @@ const Colorify = () => {
 
     return (
         <div>
-            <Header href='/' variant='h3'>Colorify</Header>
+            <Header variant='h3'>Colorify</Header>
             <br/>
             <br/>
             {!loggedIn && <SpotifyLogin />}
