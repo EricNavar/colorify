@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { ThemeProvider } from '@mui/material';
 import React from 'react';
 
 import {
@@ -11,6 +12,8 @@ import {
 
 import { Colorify } from './screens/Colorify';
 import { PlaylistPage } from './screens/PlaylistPage';
+import { ScreenMain } from './styling/commonStyles';
+import { lightTheme } from './styling/themes';
 
 type ScrollToTopProps = {
   children: JSX.Element;
@@ -40,17 +43,21 @@ function Root(): JSX.Element {
     <>
       <Router>
         <ScrollToTop>
-          <Switch>
-            <Route path="/playlist/:id">
-              {Helper}
-            </Route>
-            <Route path="/">
-              <Colorify />
-            </Route>
-            <Route path="*">
-              <Redirect to="/" />
-            </Route>
-          </Switch>
+          <ThemeProvider theme={lightTheme}>
+            <ScreenMain>
+              <Switch>
+                <Route path="/playlist/:id">
+                  {Helper}
+                </Route>
+                <Route path="/">
+                  <Colorify />
+                </Route>
+                <Route path="*">
+                  <Redirect to="/" />
+                </Route>
+              </Switch>
+            </ScreenMain>
+          </ThemeProvider>
         </ScrollToTop>
       </Router>
     </>

@@ -206,13 +206,6 @@ const reduceClustersWithSongs = (clusters: ClusterWithSong[]) => {
   }, []);
 };
 
-const arr = [
-  'cherry blosson',
-  'suicide yr',
-  'you broke me first',
-  'Surprise'
-];
-
 export function sortSongs(songs: SpotifySongProps[]) {
   songs.forEach((song) => {
     let minDistance: number|undefined;

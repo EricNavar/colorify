@@ -8,9 +8,11 @@ import { SpotifyPlaylist } from '../components/SpotifyPlaylist';
 import { getPlaylists } from '../util/spotify-requests';
 
 const ScrollableArea = styled('div')`
-    height: calc(100vh - 300px);
+    height: calc(100vh - 250px);
     overflow: scroll;
     padding-right: 15px;
+    display: flex;
+    flex-wrap: wrap;
 `;
 
 const Header = styled(Link)`
