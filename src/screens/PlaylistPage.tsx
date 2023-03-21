@@ -147,8 +147,6 @@ const PlaylistPage = (props: PlaylistPageProps) => {
         window.open(`https://open.spotify.com/playlist/${newPlaylistId}`);
     };
 
-    console.log()
-
     return (
         <div>
             <Details>
@@ -159,13 +157,40 @@ const PlaylistPage = (props: PlaylistPageProps) => {
                     <Typography variant='body1'>{songs.length} songs</Typography>
                 </div>
             </Details>
-            <div style={{marginTop: 12, marginBottom: 12}}>
+            <div style={{marginTop: 20, marginBottom: 20}}>
                 {doneSorting ?
                     <>
-                        <Button variant='contained' disableElevation onClick={onClickSaveToNewPlaylist}>Save to new playlist</Button>
-                        {editable && <Button style={{marginLeft:8}} variant='contained' disableElevation onClick={onClickSaveToSamePlaylist}>Save to same playlist</Button>}
+                        <Button
+                            variant='contained'
+                            color='info'
+                            disableElevation
+                            onClick={onClickSaveToNewPlaylist}
+                            style={{textTransform:'none'}}
+                        >
+                            Save to new playlist
+                        </Button>
+                        {editable && (
+                            <Button
+                                color='info'
+                                style={{marginLeft:8, textTransform:'none'}}
+                                variant='contained'
+                                disableElevation
+                                onClick={onClickSaveToSamePlaylist}
+                            >
+                                Save to same playlist
+                            </Button>
+                        )}
                     </> :
-                    <LoadingButton variant='contained' disableElevation loading={loading} onClick={onClickColorify}>Colorify</LoadingButton>
+                    <LoadingButton
+                        color='info'
+                        variant='contained'
+                        disableElevation
+                        loading={loading}
+                        onClick={onClickColorify}
+                        style={{textTransform:'none'}}
+                    >
+                        Colorify
+                    </LoadingButton>
                 }
             </div>
 
