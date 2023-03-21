@@ -4,8 +4,8 @@ import { Button, styled, Typography } from '@mui/material';
 
 import { SpotifyPlaylistProps } from '../commonTypes';
 import { SpotifyLogin } from '../components/SpotifyLogin';
-import { SpotifyPlaylist } from '../components/SpotifyPlaylist';
-import { getPlaylists } from '../util/spotify-requests';
+import { SpotifyPlaylistCard } from '../components/SpotifyPlaylistCard';
+import { getPlaylists, getUsername } from '../util/spotify-requests';
 
 const ScrollableArea = styled('div')`
     height: calc(100vh - 250px);
@@ -38,6 +38,16 @@ const Colorify = () => {
             if (data) {
                 setPlaylists(data.playlists);
                 setTotalPlaylists(data.totalPlaylists);
+            }
+        }
+    };
+
+    const storeUsername = async () => {
+        let username;
+        if (token) {
+            username = await getUsername(token);
+            if (username) {
+                window.localStorage.setItem('username', username);
             }
         }
     };
@@ -77,12 +87,12 @@ const Colorify = () => {
             window.location.hash = '';
             window.localStorage.setItem('token', token);
         }
+        storeUsername();
         setToken(token);
         if (token && !expired) {
             setLoggedIn(true);
-        } 
-
-    }, []);
+        }
+    }, [storeUsername]);
 
     React.useEffect(() => {
         fetchPlaylists();
@@ -108,7 +118,12 @@ const Colorify = () => {
             <Header variant='h3'>Colorify</Header>
             <br/>
             <br/>
-            {!loggedIn && <SpotifyLogin />}
+            {!loggedIn && (
+                <>
+                    <Typography>Note: This project is currently in development mode but in the future I will ask Spotify to let me make it public. If you want to use it, I would need your email to put into the Spotify Dev console.</Typography>
+                    <SpotifyLogin />
+                </>
+            )}
             {playlists.length > 0 &&
                 <>
                     {/* <form>
@@ -121,7 +136,7 @@ const Colorify = () => {
                         <Button onClick={onSubmitSearch}>Search</Button>
                     </form> */}
                     <ScrollableArea>
-                        {playlists.map((playlist, index) => <SpotifyPlaylist key={index} {...playlist}/>)}
+                        {playlists.map((playlist, index) => <SpotifyPlaylistCard key={index} {...playlist}/>)}
                     </ScrollableArea>
                     {Array.from({length: totalPages}, (x, i) => i + 1).map((pageNumber: number, index: number) => 
                         <Button

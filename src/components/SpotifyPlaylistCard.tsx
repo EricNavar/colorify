@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { IconButton, Link, Typography } from '@mui/material';
+import { Typography, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
+import Pin from '../pushpin.webp';
 
 import { SpotifyPlaylistProps } from '../commonTypes';
-import { LinkIcon } from '../assets/LinkIcon';
 
 const SongCard = styled('div')`
     background: white;
@@ -18,23 +18,39 @@ const SongCard = styled('div')`
     padding-top: 18px;
     margin-left: auto;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    position: relative;
 `;
+
+const StyledChip = styled(Chip)<any>({
+    '&:hover': {
+        cursor: 'pointer',
+    },
+    marginRight: 8,
+    marginTop: 8,
+});
 
 const TextContainer = styled('div')`
     padding: 8px;
 `;
 
-const SpotifyPlaylist = (props: SpotifyPlaylistProps) => {
+const PinImage = styled('img')`
+    position: absolute;
+    top: 0px;
+    right: 45%;
+`;
+
+const SpotifyPlaylistCard = (props: SpotifyPlaylistProps) => {
     return (
         <SongCard>
+            <PinImage src={Pin} alt='' height="40px" width="40px"/>
             <img src={props.thumbnail} height="214px" width="214px" alt='playlist art'/>
             <TextContainer>
                 <Typography variant='body1'>{props.name}</Typography>
-                <IconButton href={props.link}><LinkIcon/></IconButton>
-                <Link component={RouterLink} to={`/playlist/${props.id}`}>Colorify</Link>
+                <StyledChip label ='Colorify' component={RouterLink} to={`/playlist/${props.id}`}/>
+                <StyledChip label ='Link' component='a' href={props.link} />
             </TextContainer>
         </SongCard>
     );
 };
 
-export {SpotifyPlaylist};
+export {SpotifyPlaylistCard};

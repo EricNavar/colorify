@@ -179,7 +179,7 @@ const clusters: Cluster[] = [
   { name: 'white', leadColor: [255, 255, 255], colors: [] },
 ];
 
-function oneDimensionSorting(colors: Color[], dim: 'l' | 's') {
+function oneDimensionSorting(colors: Color[], dim: 'l' | 'h') {
   return colors
     .sort((colorA, colorB) => {
       if (colorA.hsl[dim] < colorB.hsl[dim]) {
@@ -229,8 +229,13 @@ function sortWithClusters(colorsToSort: string[]) {
     }
   });
   
+  // clusters.forEach((cluster) => {
+  //   const dim = ['white', 'grey', 'black'].includes(cluster.name) ? 'l' : 's';
+  //   cluster.colors = oneDimensionSorting(cluster.colors, dim);
+  // });
+
   clusters.forEach((cluster) => {
-    const dim = ['white', 'grey', 'black'].includes(cluster.name) ? 'l' : 's';
+    const dim = ['white', 'grey', 'black'].includes(cluster.name) ? 'l' : 'h';
     cluster.colors = oneDimensionSorting(cluster.colors, dim);
   });
 

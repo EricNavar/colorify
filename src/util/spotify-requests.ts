@@ -93,13 +93,15 @@ export const getSongsFromPlaylist = async (token: string, playlistId: string, of
 };
 
 export const getPlaylistDetails = async (token: string, playlistId: string) => {
-    const url = `https://api.spotify.com/v1/playlists/${playlistId}?fields=images%2Cname%2Cexternal_urls`;
+    const url = `https://api.spotify.com/v1/playlists/${playlistId}?fields=images%2Cname%2Cexternal_urls%2Cowner%2Cdescription`;
     return axios.get(url, getConfig(token))
         .then(function (response: any) {
             const result = {
                 name: response.data.name,
                 thumbnail: response.data.images.length > 0 ? response.data.images[0].url : '',
                 url: response.data.external_urls.spotify,
+                owner: response.data.owner.id,
+                description: response.data.description,
             };
             return result;
         })
@@ -143,6 +145,38 @@ export const addSongsToPlaylist = async (token: string, playlistId: string, song
     return axios.post(url, data, getConfig(token))
         .then(function (response: any) {
             return response;
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+};
+
+export const getUsername = async (token: string) => {
+    const url = 'https://api.spotify.com/v1/me';
+    return axios.get(url, getConfig(token))
+        .then(function (response: any) {
+            return response.data.id;
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+}
+
+export const createNewPlaylist = async (token: string, userId: string, name: string, description: string) => {
+    const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
+    const data = {
+        name: name,
+        description: description,
+    };
+    return axios.post(url, data, getConfig(token))
+        .then(function (response: any) {
+            return response.data.id;
         })
         .catch(function (error: any) {
             console.log(error);
