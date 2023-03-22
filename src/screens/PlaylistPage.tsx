@@ -152,7 +152,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
         let i = 0;
         while (i < songIds.length) {
             const toAddChunk = songIds[i];
-            await addSongsToPlaylist(token, props.playlistId, toAddChunk)
+            await addSongsToPlaylist(token, newPlaylistId, toAddChunk)
             i++;
         }
 
