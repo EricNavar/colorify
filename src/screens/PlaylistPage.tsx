@@ -114,34 +114,47 @@ const PlaylistPage = (props: PlaylistPageProps) => {
         });
     };
 
+    //create array of array of songs with each subarray 100 long
+    const getSongIdsArr = () => {
+        const songIds: string[][] = [];
+        const songIdsLength = Math.ceil(songs.length / 100);
+        for (let i = 0; i < songIdsLength; i++) {
+            songIds.push(songs.slice(i * 100, (i+1) * 100).map(song=>song.id));
+        }
+        return songIds;
+    }
+
     const onClickSaveToSamePlaylist = async () => {
         setLoading(true);
 
-        //create array of array of songs with each subarray 100 long
-        const songIds: string[][] = Array(Math.ceil(songs.length / 100)).fill([]);
-        songs.forEach((song, index) => songIds[Math.floor(index / 100)].push(song.id));
+        const songIds = getSongIdsArr();
 
-        //delete songs from playlist
+        // delete songs from playlist
         await songIds.forEach((toDeleteChunk) => deletePlaylistSongs(token, props.playlistId, toDeleteChunk));
 
         //add songs in the right order
-        songIds.forEach((toAddChunk) => addSongsToPlaylist(token, props.playlistId, toAddChunk));
+        let i = 0;
+        while (i < songIds.length) {
+            const toAddChunk = songIds[i];
+            await addSongsToPlaylist(token, props.playlistId, toAddChunk)
+            i++;
+        }
 
         setLoading(false);
     };
 
     const onClickSaveToNewPlaylist = async () => {
         setLoading(true);
-
-        //create array of array of songs with each subarray 100 long
-        const songIds: string[][] = Array(Math.ceil(songs.length / 100)).fill([]);
-        songs.forEach((song, index) => songIds[Math.floor(index / 100)].push(song.id));
-
-        //create new playlist
+        const songIds = getSongIdsArr();
         const newPlaylistId = await createNewPlaylist(token, username, `${name} - Colorified`, description);
 
         //add songs in the right order
-        songIds.forEach((toAddChunk) => addSongsToPlaylist(token, newPlaylistId, toAddChunk));
+        let i = 0;
+        while (i < songIds.length) {
+            const toAddChunk = songIds[i];
+            await addSongsToPlaylist(token, props.playlistId, toAddChunk)
+            i++;
+        }
 
         setLoading(false);
         window.open(`https://open.spotify.com/playlist/${newPlaylistId}`);
