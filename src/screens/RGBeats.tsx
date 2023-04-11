@@ -14,6 +14,8 @@ const ScrollableArea = styled('div')`
     display: flex;
     flex-wrap: wrap;
     padding-top: 20px;
+    align-items: flex-start;
+    justify-content: left;
 `;
 
 const Header = styled(Typography)`
@@ -135,6 +137,7 @@ const RGBeats = () => {
                         />
                         <Button onClick={onSubmitSearch}>Search</Button>
                     </form> */}
+                    <Typography variant='body1'>Select a playlist to sort</Typography>
                     <ScrollableArea>
                         {playlists.map((playlist, index) => <PolaroidCard key={index} {...playlist}/>)}
                     </ScrollableArea>
