@@ -3,11 +3,12 @@ import React from 'react';
 import { Typography, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
-import Pin from '../pushpin.webp';
+import Pin from '../assets/pushpin.webp';
 
 import { SpotifyPlaylistProps } from '../commonTypes';
+import { SpotifyIcon } from '../assets/SpotifyIcon';
 
-const SongCard = styled('div')`
+const Card = styled('div')`
     background: white;
     display: flex;
     margin-bottom: 12px;
@@ -35,22 +36,29 @@ const TextContainer = styled('div')`
 
 const PinImage = styled('img')`
     position: absolute;
-    top: 0px;
+    top: -10px;
     right: 45%;
 `;
 
-const SpotifyPlaylistCard = (props: SpotifyPlaylistProps) => {
+type PolaroidCardProps = {
+    name: string;
+    thumbnail: string;
+    id?: string;
+    link?: string;
+};
+
+const PolaroidCard = (props: PolaroidCardProps) => {
     return (
-        <SongCard>
+        <Card>
             <PinImage src={Pin} alt='' height="40px" width="40px"/>
             <img src={props.thumbnail} height="214px" width="214px" alt='playlist art'/>
             <TextContainer>
                 <Typography variant='body1'>{props.name}</Typography>
-                <StyledChip label ='Colorify' component={RouterLink} to={`/playlist/${props.id}`}/>
-                <StyledChip label ='Link' component='a' href={props.link} />
+                <StyledChip label ='Sort' component={RouterLink} to={`/playlist/${props.id}`}/>
+                <StyledChip label ='Link' component='a' href={props.link} icon={<SpotifyIcon/>}/>
             </TextContainer>
-        </SongCard>
+        </Card>
     );
 };
 
-export {SpotifyPlaylistCard};
+export {PolaroidCard};

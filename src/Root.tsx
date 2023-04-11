@@ -10,7 +10,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 
-import { Colorify } from './screens/Colorify';
+import { RGBeats } from './screens/RGBeats';
 import { PlaylistPage } from './screens/PlaylistPage';
 import { ScreenMain } from './styling/commonStyles';
 import { lightTheme } from './styling/themes';
@@ -50,7 +50,7 @@ function Root(): JSX.Element {
                   {Helper}
                 </Route>
                 <Route path="/">
-                  <Colorify />
+                  <RGBeats />
                 </Route>
                 <Route path="*">
                   <Redirect to="/" />

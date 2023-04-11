@@ -4,7 +4,7 @@ import { Button, styled, Typography } from '@mui/material';
 
 import { SpotifyPlaylistProps } from '../commonTypes';
 import { SpotifyLogin } from '../components/SpotifyLogin';
-import { SpotifyPlaylistCard } from '../components/SpotifyPlaylistCard';
+import { PolaroidCard } from '../components/PolaroidCard';
 import { getPlaylists, getUsername } from '../util/spotify-requests';
 
 const ScrollableArea = styled('div')`
@@ -20,7 +20,7 @@ const Header = styled(Typography)`
     text-decoration: none;
 `;
 
-const Colorify = () => {
+const RGBeats = () => {
     const limit = 50; // playlists per request;
     // const [search, setSearch] = React.useState('');
     const [token, setToken] = React.useState('');
@@ -115,7 +115,7 @@ const Colorify = () => {
 
     return (
         <div>
-            <Header variant='h3'>Colorify</Header>
+            <Header variant='h3'>RGBeats</Header>
             <br/>
             <br/>
             {!loggedIn && (
@@ -136,7 +136,7 @@ const Colorify = () => {
                         <Button onClick={onSubmitSearch}>Search</Button>
                     </form> */}
                     <ScrollableArea>
-                        {playlists.map((playlist, index) => <SpotifyPlaylistCard key={index} {...playlist}/>)}
+                        {playlists.map((playlist, index) => <PolaroidCard key={index} {...playlist}/>)}
                     </ScrollableArea>
                     {Array.from({length: totalPages}, (x, i) => i + 1).map((pageNumber: number, index: number) => 
                         <Button
@@ -156,4 +156,4 @@ const Colorify = () => {
     );
 };
 
-export { Colorify };
+export { RGBeats };

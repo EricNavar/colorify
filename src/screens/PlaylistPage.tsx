@@ -3,13 +3,14 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Color } from '@jgleman/color-box';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Button, Link, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { FastAverageColor } from 'fast-average-color';
 
 import { SpotifySongProps } from '../commonTypes';
-import { SpotifySongSquare } from '../components/SpotifySongSquare';
 import { sortSongs } from '../util/sort-colors-songs-simple';
 import { addSongsToPlaylist, createNewPlaylist, deletePlaylistSongs, getPlaylistDetails, getSongsFromPlaylist } from '../util/spotify-requests';
+import { PolaroidCard } from '../components/PolaroidCard';
+import { Attribution } from '../components/Attribution';
 
 const SongContainer = styled('div')`
     display: flex;
@@ -90,7 +91,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token, pagesRequested]);
 
-    const onClickColorify = async () => {
+    const onClickSort = async () => {
         setLoading(true);
         const fac = new FastAverageColor();
         const songsWithColors = await songs.map((song: SpotifySongProps) => {
@@ -170,6 +171,7 @@ const PlaylistPage = (props: PlaylistPageProps) => {
                     <Typography variant='body1'>{songs.length} songs</Typography>
                 </div>
             </Details>
+            <Attribution/>
             <div style={{marginTop: 20, marginBottom: 20}}>
                 {doneSorting ?
                     <>
@@ -199,16 +201,25 @@ const PlaylistPage = (props: PlaylistPageProps) => {
                         variant='contained'
                         disableElevation
                         loading={loading}
-                        onClick={onClickColorify}
+                        onClick={onClickSort}
                         style={{textTransform:'none'}}
                     >
-                        Colorify
+                        Sort
                     </LoadingButton>
                 }
+                <Button
+                    variant='contained'
+                    color='info'
+                    disableElevation 
+                    style={{marginLeft:8, textTransform:'none'}}
+                    href={`https://open.spotify.com/playlist/${props.playlistId}`}
+                >
+                    Open in Spotify
+                </Button>
             </div>
 
             <SongContainer>
-                {songs && songs.map((item, index) => item && <SpotifySongSquare key={index} {...item} />)}
+                {songs && songs.map((item, index) => item && <PolaroidCard key={index} name={item.title} thumbnail={item.thumbnail} />)}
             </SongContainer>
         </div>
     );
