@@ -17,7 +17,7 @@ export const parseSpotifyPlaylist = (playlist: any): SpotifyPlaylistProps | null
         return {
             id: playlist.id as string || '',
             name: playlist.name as string || '',
-            thumbnail: playlist.images.length > 0 ? playlist.images[0].url as string : '',
+            thumbnail: playlist.images && playlist.images.length > 0 ? playlist.images[0].url as string : '',
             link: playlist.external_urls.spotify as string || '',
         };
     }

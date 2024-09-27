@@ -36,7 +36,7 @@ export const getPlaylists = async (token: string, page: number) => {
     return axios.get(url, getConfig(token))
         .then(function (response: any) {
             return {
-                playlists: response.data.items.map((playlist: any)=> 
+                playlists: response?.data?.items?.map((playlist: any)=> 
                     parseSpotifyPlaylist(playlist)
                 ),
                 totalPlaylists: response.data.total

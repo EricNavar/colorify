@@ -5,7 +5,6 @@ import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import Pin from '../assets/pushpin.webp';
 
-import { SpotifyPlaylistProps } from '../commonTypes';
 import { SpotifyIcon } from '../assets/SpotifyIcon';
 
 const Card = styled('div')`
